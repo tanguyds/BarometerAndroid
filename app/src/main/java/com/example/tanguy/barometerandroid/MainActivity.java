@@ -58,7 +58,7 @@ public class MainActivity extends Activity {
 
     private void retrofitCall() {
         Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:50562/")
+                .baseUrl("http://10.0.2.2:50562/token/")
                 .addConverterFactory(GsonConverterFactory.create());
 
         Retrofit retrofit = builder.build();
@@ -69,7 +69,6 @@ public class MainActivity extends Activity {
         //etEmail.getText().toString(), etPassword.getText().toString()
         Login login = new Login("admin@nalubarometer.com", "Qwerty123!");
         Call<User> call = userClient.login(login);
-
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
