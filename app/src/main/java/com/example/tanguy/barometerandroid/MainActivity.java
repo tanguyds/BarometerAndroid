@@ -66,17 +66,22 @@ public class MainActivity extends Activity {
     }
 
     private void login() {
-        Login login = new Login(etEmail.getText().toString(), etPassword.getText().toString());
+        //etEmail.getText().toString(), etPassword.getText().toString()
+        Login login = new Login("admin@nalubarometer.com", "Qwerty123!");
         Call<User> call = userClient.login(login);
 
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                if (response.isSuccessful()) {
-                    Toast.makeText(MainActivity.this, response.body().getToken(), Toast.LENGTH_SHORT).show();
-                    token = response.body().getToken();
-                } else {
-                    Toast.makeText(MainActivity.this, "Login is not correct!", Toast.LENGTH_SHORT).show();
+                try {
+                    if (response.isSuccessful()) {
+                        Toast.makeText(MainActivity.this, response.body().getToken(), Toast.LENGTH_SHORT).show();
+                        token = response.body().getToken();
+                    } else {
+                        Toast.makeText(MainActivity.this, "Login is not correct!", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    Log.d("Error", "", e);
                 }
             }
 

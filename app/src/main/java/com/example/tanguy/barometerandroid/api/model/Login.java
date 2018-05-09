@@ -5,12 +5,12 @@ package com.example.tanguy.barometerandroid.api.model;
  */
 
 public class Login {
-    private String user;
+    private String username;
     private String password;
     private String grant_type;
 
     public Login(String user, String password) {
-        this.user = user;
+        this.username = user;
         this.password = password;
         this.grant_type = "password";
     }
