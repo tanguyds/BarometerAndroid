@@ -3,6 +3,7 @@ package com.example.tanguy.barometerandroid;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -57,7 +58,7 @@ public class MainActivity extends Activity {
 
     private void retrofitCall() {
         Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl("https://localhost:50562/")
+                .baseUrl("http://10.0.2.2:50562/")
                 .addConverterFactory(GsonConverterFactory.create());
 
         Retrofit retrofit = builder.build();
@@ -82,6 +83,8 @@ public class MainActivity extends Activity {
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 Toast.makeText(MainActivity.this, "Error!", Toast.LENGTH_SHORT).show();
+                // log.d gebruiken in plaats van toast
+                Log.d("error","", t  );
             }
         });
     }
