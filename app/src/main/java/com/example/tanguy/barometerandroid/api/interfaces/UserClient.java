@@ -15,7 +15,7 @@ import retrofit2.http.POST;
  */
 
 public interface UserClient {
-    @POST("token")
+    @POST("Token")
     Call<User> login(@Body Login login);
 
     @GET("secretinfo")

@@ -51,31 +51,32 @@ public class MainActivity extends Activity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                login();
+                loginCall();
             }
         });
     }
 
     private void retrofitCall() {
         Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:50562/token/")
+                .baseUrl("http://10.0.2.2:50562/")
                 .addConverterFactory(GsonConverterFactory.create());
 
         Retrofit retrofit = builder.build();
         userClient = retrofit.create(UserClient.class);
     }
 
-    private void login() {
+    private void loginCall() {
         //etEmail.getText().toString(), etPassword.getText().toString()
         Login login = new Login("admin@nalubarometer.com", "Qwerty123!");
         Call<User> call = userClient.login(login);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
+                Log.d("password.tostring", etPassword.getText().toString());
                 try {
                     if (response.isSuccessful()) {
-                        Toast.makeText(MainActivity.this, response.body().getToken(), Toast.LENGTH_SHORT).show();
-                        token = response.body().getToken();
+                        Toast.makeText(MainActivity.this, response.body().getAccessToken(), Toast.LENGTH_SHORT).show();
+                        token = response.body().getAccessToken();
                     } else {
                         Toast.makeText(MainActivity.this, "Login is not correct!", Toast.LENGTH_SHORT).show();
                     }
