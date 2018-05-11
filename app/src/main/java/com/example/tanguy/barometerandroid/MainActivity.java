@@ -58,7 +58,7 @@ public class MainActivity extends Activity {
 
     private void retrofitCall() {
         Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:50562/")
+                .baseUrl("http://10.0.2.2:50562/account/api/")
                 .addConverterFactory(GsonConverterFactory.create());
 
         Retrofit retrofit = builder.build();
@@ -67,22 +67,17 @@ public class MainActivity extends Activity {
 
     private void loginCall() {
         //etEmail.getText().toString(), etPassword.getText().toString()
-        Login login = new Login("admin@nalubarometer.com", "Qwerty123!");
-        Call<User> call = userClient.login(login);
-        call.enqueue(new Callback<User>() {
+        Login login = new Login("admin@nalubarometer.com", "Qwerty123!","password");
+        userClient.login(login).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 Log.d("password.tostring", etPassword.getText().toString());
-                try {
                     if (response.isSuccessful()) {
-                        Toast.makeText(MainActivity.this, response.body().getAccessToken(), Toast.LENGTH_SHORT).show();
-                        token = response.body().getAccessToken();
+                        Toast.makeText(MainActivity.this, response.body().getAccess_token(), Toast.LENGTH_SHORT).show();
+                        token = response.body().getAccess_token();
                     } else {
                         Toast.makeText(MainActivity.this, "Login is not correct!", Toast.LENGTH_SHORT).show();
                     }
-                } catch (Exception e) {
-                    Log.d("Error", "", e);
-                }
             }
 
             @Override
