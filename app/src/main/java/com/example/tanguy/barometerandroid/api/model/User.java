@@ -7,11 +7,8 @@ import com.google.gson.annotations.SerializedName;
  * Created by Tanguy on 8/05/2018.
  */
 
-import java.util.HashMap;
-import java.util.Map;
 
 public class User {
-
     private String access_token;
     private String token_type;
     private Integer expires_in;

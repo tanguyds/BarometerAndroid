@@ -14,4 +14,5 @@ public class Login {
         this.password = password;
         this.grant_type = grant_type;
     }
+
 }
