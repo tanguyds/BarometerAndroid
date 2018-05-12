@@ -31,8 +31,8 @@ public interface UserClient {
     //Call<User> login(@Body RequestBody body);
     //Call<User> login(@FieldMap(encoded = true) Map<String, String> fields);
     Call<User> login(
-            @Field("username") String username,
-            @Field( "password") String password,
+            @Field(value = "username", encoded = true) String username,
+            @Field( value = "password", encoded = true) String password,
             @Field("grant_type") String grant_type);
 
 

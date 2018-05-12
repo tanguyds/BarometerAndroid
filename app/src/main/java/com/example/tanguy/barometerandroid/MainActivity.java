@@ -85,7 +85,7 @@ public class MainActivity extends Activity {
                 map.put("username", "admin@nalubaromter.com");
                 map.put("password", "Qwerty123!");
                 map.put("grant_type", "password");*/
-                userClient.login("password!", "Admin@nalubarometer.com", "Qwerty123!").enqueue(new Callback<User>() {
+                userClient.login("Admin@nalubarometer.com!", "Qwerty123", "password").enqueue(new Callback<User>() {
                     //Login login = new Login("admin@nalubarometer.com", "Qwerty123!","password");
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
