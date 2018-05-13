@@ -18,6 +18,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -38,6 +39,7 @@ public class MainActivity extends Activity {
     private EditText etEmail;
     private EditText etPassword;
     private UserClient userClient;
+    private final String API_BASE_URL = "http://10.0.2.2:50562/";
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,10 +69,14 @@ public class MainActivity extends Activity {
                 OkHttpClient.Builder okhttpclientBuilder = new OkHttpClient.Builder();
                 HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
                 logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-                okhttpclientBuilder.addInterceptor(logging);
+                okhttpclientBuilder.addInterceptor(logging)
+                        .readTimeout(100, TimeUnit.SECONDS)
+                        .connectTimeout(100, TimeUnit.SECONDS)
+                        .writeTimeout(100, TimeUnit.SECONDS);
 
                 Retrofit.Builder builder = new Retrofit.Builder()
-                        .baseUrl("http://10.0.2.2:50562/")
+                        //.baseUrl("http://10.0.2.2:50562/")
+                        .baseUrl(API_BASE_URL)
                         .addConverterFactory(GsonConverterFactory.create())
                         .client(okhttpclientBuilder.build());
 
@@ -85,7 +91,7 @@ public class MainActivity extends Activity {
                 map.put("username", "admin@nalubaromter.com");
                 map.put("password", "Qwerty123!");
                 map.put("grant_type", "password");*/
-                userClient.login("Admin@nalubarometer.com!", "Qwerty123", "password").enqueue(new Callback<User>() {
+                userClient.login("admin@nalubarometer.com","Qwerty123!","password").enqueue(new Callback<User>() {
                     //Login login = new Login("admin@nalubarometer.com", "Qwerty123!","password");
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {

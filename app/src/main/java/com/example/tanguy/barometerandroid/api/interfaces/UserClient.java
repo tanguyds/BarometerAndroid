@@ -28,7 +28,7 @@ public interface UserClient {
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
     @POST("token")
-    //Call<User> login(@Body RequestBody body);
+   // Call<User> login(@Body Login login);
     //Call<User> login(@FieldMap(encoded = true) Map<String, String> fields);
     Call<User> login(
             @Field(value = "username", encoded = true) String username,
