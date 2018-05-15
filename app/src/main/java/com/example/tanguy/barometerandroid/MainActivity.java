@@ -8,21 +8,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.example.tanguy.barometerandroid.api.interfaces.UserClient;
-import com.example.tanguy.barometerandroid.api.model.Login;
 import com.example.tanguy.barometerandroid.api.model.User;
+import com.example.tanguy.barometerandroid.dashboard.DashboardActivity;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
-import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
-import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
@@ -35,6 +27,7 @@ public class MainActivity extends Activity {
 
     private Button btnLogin;
     private Button btnToken;
+    private Button btnDashboard;
     private static String token;
     private EditText etEmail;
     private EditText etPassword;
@@ -54,6 +47,7 @@ public class MainActivity extends Activity {
         btnToken = (Button) findViewById(R.id.btnGetToken);
         etEmail = (EditText) findViewById(R.id.etEmail);
         etPassword = (EditText) findViewById(R.id.etPassword);
+        btnDashboard = (Button) findViewById(R.id.btnDashboard);
     }
 
     private void addEventHandlers() {
@@ -61,6 +55,13 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View view) {
                 loginCall();
+            }
+        });
+        btnDashboard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -75,7 +76,6 @@ public class MainActivity extends Activity {
                         .writeTimeout(100, TimeUnit.SECONDS);
 
                 Retrofit.Builder builder = new Retrofit.Builder()
-                        //.baseUrl("http://10.0.2.2:50562/")
                         .baseUrl(API_BASE_URL)
                         .addConverterFactory(GsonConverterFactory.create())
                         .client(okhttpclientBuilder.build());
@@ -87,10 +87,6 @@ public class MainActivity extends Activity {
             private void loginCall() {
                 //"admin@nalubarometer.com","Qwerty123!","password"
                 //etEmail.getText().toString(), etPassword.getText().toString()
-                /*Map<String, String> map = new HashMap<>();
-                map.put("username", "admin@nalubaromter.com");
-                map.put("password", "Qwerty123!");
-                map.put("grant_type", "password");*/
                 userClient.login("admin@nalubarometer.com","Qwerty123!","password").enqueue(new Callback<User>() {
                     //Login login = new Login("admin@nalubarometer.com", "Qwerty123!","password");
                     @Override
