@@ -11,7 +11,6 @@ import android.widget.Toast;
 import com.example.tanguy.barometerandroid.api.interfaces.UserClient;
 import com.example.tanguy.barometerandroid.api.model.User;
 import com.example.tanguy.barometerandroid.dashboard.DashboardActivity;
-
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 import okhttp3.OkHttpClient;
