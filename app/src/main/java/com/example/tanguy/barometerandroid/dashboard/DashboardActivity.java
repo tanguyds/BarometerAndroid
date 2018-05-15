@@ -3,11 +3,12 @@ package com.example.tanguy.barometerandroid.dashboard;
 import android.app.Activity;
 
 import android.app.ActionBar;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -17,10 +18,14 @@ import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.tanguy.barometerandroid.ContactFragment;
+import com.example.tanguy.barometerandroid.FAQFragment;
+import com.example.tanguy.barometerandroid.PrivacyFragment;
 import com.example.tanguy.barometerandroid.R;
 
-public class DashboardActivity extends Activity
+public class DashboardActivity extends FragmentActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     /**
@@ -50,10 +55,24 @@ public class DashboardActivity extends Activity
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
+
+        Fragment fragment = null;
+        switch (position + 1) {
+            case 1:
+                 fragment = new ContactFragment();
+                break;
+            case 2:
+                fragment = new FAQFragment();
+                break;
+            case 3:
+                fragment = new PrivacyFragment();
+                break;
+        }
+
         // update the main content by replacing fragments
-        FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
+                .replace(R.id.container, fragment/*PlaceholderFragment.newInstance(position + 1)*/)
                 .commit();
     }
 
