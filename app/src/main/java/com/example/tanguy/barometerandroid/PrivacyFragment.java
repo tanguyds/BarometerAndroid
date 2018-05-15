@@ -12,12 +12,6 @@ import android.view.ViewGroup;
  */
 
 public class PrivacyFragment extends Fragment {
-    private View view;
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_faq, container, false);
-        return view;
+    public PrivacyFragment() {
     }
 }
