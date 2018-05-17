@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.example.tanguy.barometerandroid.api.interfaces.UserClient;
+import com.example.tanguy.barometerandroid.api.model.DashboardNode;
 import com.example.tanguy.barometerandroid.api.model.User;
 import com.example.tanguy.barometerandroid.dashboard.DashboardActivity;
 
@@ -45,6 +46,7 @@ public class MainActivity extends Activity {
         btnLogin = (Button) findViewById(R.id.btnLogin);
         etEmail = (EditText) findViewById(R.id.etEmail);
         etPassword = (EditText) findViewById(R.id.etPassword);
+        btnDashboard = (Button) findViewById(R.id.btnApiCall);
     }
 
     private void addEventHandlers() {
@@ -52,6 +54,13 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View view) {
                 loginCall();
+            }
+        });
+
+        btnDashboard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dashboardCall();
             }
         });
     }
@@ -72,8 +81,8 @@ public class MainActivity extends Activity {
             }
 
             private void loginCall() {
-                userClient.login(etEmail.getText().toString(), etPassword.getText().toString(), "password").enqueue(new Callback<User>() {
-                    //Login login = new Login("admin@nalubarometer.com", "Qwerty123!","password");
+               // userClient.login(etEmail.getText().toString(), etPassword.getText().toString(), "password").enqueue(new Callback<User>() {
+                     userClient.login("admin@nalubarometer.com", "Qwerty123!","password").enqueue(new Callback<User>() {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
                         Log.d("password.tostring", etPassword.getText().toString());
@@ -91,6 +100,20 @@ public class MainActivity extends Activity {
                     public void onFailure(Call<User> call, Throwable t) {
                         Toast.makeText(MainActivity.this, "Error!", Toast.LENGTH_SHORT).show();
                         Log.d("error", "", t);
+                    }
+                });
+            }
+
+            private void dashboardCall() {
+                userClient.node((1)).enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        Toast.makeText(MainActivity.this, response.body().toString(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Toast.makeText(MainActivity.this, "Foutjeee!", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

@@ -3,30 +3,38 @@ package com.example.tanguy.barometerandroid.dashboard;
 import android.app.Activity;
 
 import android.app.ActionBar;
-import android.content.Context;
-import android.os.Build;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tanguy.barometerandroid.ContactFragment;
-import com.example.tanguy.barometerandroid.FAQFragment;
+import com.example.tanguy.barometerandroid.AlertFragment;
 import com.example.tanguy.barometerandroid.PrivacyFragment;
 import com.example.tanguy.barometerandroid.R;
+import com.example.tanguy.barometerandroid.graphs.BartChart;
+import com.example.tanguy.barometerandroid.graphs.LineGraph;
+import com.example.tanguy.barometerandroid.graphs.PointGraph;
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.ValueDependentColor;
+import com.jjoe64.graphview.series.BarGraphSeries;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
+import com.jjoe64.graphview.series.PointsGraphSeries;
 
 public class DashboardActivity extends FragmentActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+
+    private GraphView graphView;
+    private LineGraph lineGraph;
+    private BartChart bartChart;
+    private PointGraph pointGraph;
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -36,7 +44,61 @@ public class DashboardActivity extends FragmentActivity
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
+
+    private void initialiseViews() {
+        graphView = (GraphView) findViewById(R.id.graph);
+    }
+
+    private void addEventhandlers() {
+
+    }
+
     private CharSequence mTitle;
+
+    private void createLineGraph() {
+        lineGraph = new LineGraph();
+        LineGraphSeries<DataPoint> series = lineGraph.maakSerie1();
+        LineGraphSeries<DataPoint> serie2 = lineGraph.maakSerie2();
+        serie2.setColor(Color.parseColor("red"));
+        graphView.setTitle("Testgrafiek");
+        graphView.addSeries(series);
+        graphView.addSeries(serie2);
+    }
+
+    private void createBarChart() {
+        bartChart = new BartChart();
+        BarGraphSeries<DataPoint> series = bartChart.maakSerie1();
+        graphView.addSeries(series);
+        series.setValueDependentColor(new ValueDependentColor<DataPoint>() {
+            @Override
+            public int get(DataPoint data) {
+                return Color.rgb((int) data.getX() * 255 / 4, (int) Math.abs(data.getY() * 255 / 6), 100);
+            }
+        });
+        series.setSpacing(50);
+
+// draw values on top
+        series.setDrawValuesOnTop(true);
+        series.setValuesOnTopColor(Color.RED);
+//series.setValuesOnTopSize(50);
+    }
+
+    private void createPointGraph() {
+        pointGraph = new PointGraph();
+        PointsGraphSeries<DataPoint> series = pointGraph.maakSerie1();
+        PointsGraphSeries<DataPoint> serie2 = pointGraph.maakSerie2();
+        graphView.addSeries(series);
+        graphView.addSeries(serie2);
+        series.setShape(PointsGraphSeries.Shape.POINT);
+        serie2.setShape(PointsGraphSeries.Shape.RECTANGLE);
+        serie2.setColor(Color.RED);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(getApplicationContext(), "Back press disabled!", Toast.LENGTH_SHORT).show();
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +113,12 @@ public class DashboardActivity extends FragmentActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+        initialiseViews();
+        addEventhandlers();
+        createLineGraph();
+        // createBarChart();
+        //createPointGraph();
     }
 
     @Override
@@ -59,10 +127,10 @@ public class DashboardActivity extends FragmentActivity
         Fragment fragment = null;
         switch (position + 1) {
             case 1:
-                 fragment = new ContactFragment();
+                fragment = new ContactFragment();
                 break;
             case 2:
-                fragment = new FAQFragment();
+                fragment = new AlertFragment();
                 break;
             case 3:
                 fragment = new PrivacyFragment();
@@ -82,7 +150,7 @@ public class DashboardActivity extends FragmentActivity
                 mTitle = getString(R.string.contact);
                 break;
             case 2:
-                mTitle = getString(R.string.faq);
+                mTitle = getString(R.string.alert);
                 break;
             case 3:
                 mTitle = getString(R.string.privacy);

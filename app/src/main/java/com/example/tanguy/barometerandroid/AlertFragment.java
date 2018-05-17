@@ -1,7 +1,5 @@
 package com.example.tanguy.barometerandroid;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,9 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-public class FAQFragment extends Fragment {
+public class AlertFragment extends Fragment {
 
-    public FAQFragment() {
+    public AlertFragment() {
         // Required empty public constructor
     }
 
@@ -20,6 +18,6 @@ public class FAQFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_faq, container, false);
+        return inflater.inflate(R.layout.fragment_alert, container, false);
     }
 }

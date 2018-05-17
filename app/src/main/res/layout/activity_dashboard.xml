@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     tools:context="com.example.tanguy.barometerandroid.dashboard.DashboardActivity">
 
+
+    <com.jjoe64.graphview.GraphView
+        android:layout_width="match_parent"
+        android:layout_height="200dip"
+        android:id="@+id/graph" />
+
     <!-- As the main content view, the view below consumes the entire
          space available using match_parent in both dimensions. -->
     <FrameLayout
