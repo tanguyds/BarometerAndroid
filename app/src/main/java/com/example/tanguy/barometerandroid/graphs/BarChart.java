@@ -7,7 +7,7 @@ import com.jjoe64.graphview.series.DataPoint;
  * Created by Tanguy on 16/05/2018.
  */
 
-public class BartChart {
+public class BarChart {
     private BarGraphSeries<DataPoint> series;
     private double[] xDatapoints = new double[10];
     private double[] yDatapoints = new double[10];

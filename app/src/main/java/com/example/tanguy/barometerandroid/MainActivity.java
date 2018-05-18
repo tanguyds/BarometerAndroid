@@ -3,6 +3,7 @@ package com.example.tanguy.barometerandroid;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.MainThread;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +13,7 @@ import com.example.tanguy.barometerandroid.api.interfaces.UserClient;
 import com.example.tanguy.barometerandroid.api.model.DashboardNode;
 import com.example.tanguy.barometerandroid.api.model.User;
 import com.example.tanguy.barometerandroid.dashboard.DashboardActivity;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -108,12 +110,21 @@ public class MainActivity extends Activity {
                 userClient.node((1)).enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        Toast.makeText(MainActivity.this, response.body().toString(), Toast.LENGTH_SHORT).show();
+                        Gson gson = new Gson();
+                        Object[][] o = new Object[0][];
+                        try {
+                            o = gson.fromJson(response.body().string(), Object[][].class);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
+                        intent.putExtra("dataobject", o);
+                        startActivity(intent);
                     }
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Toast.makeText(MainActivity.this, "Foutjeee!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Error!", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

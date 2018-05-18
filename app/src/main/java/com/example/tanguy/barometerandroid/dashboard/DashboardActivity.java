@@ -18,7 +18,7 @@ import com.example.tanguy.barometerandroid.ContactFragment;
 import com.example.tanguy.barometerandroid.AlertFragment;
 import com.example.tanguy.barometerandroid.PrivacyFragment;
 import com.example.tanguy.barometerandroid.R;
-import com.example.tanguy.barometerandroid.graphs.BartChart;
+import com.example.tanguy.barometerandroid.graphs.BarChart;
 import com.example.tanguy.barometerandroid.graphs.LineGraph;
 import com.example.tanguy.barometerandroid.graphs.PointGraph;
 import com.jjoe64.graphview.GraphView;
@@ -33,7 +33,7 @@ public class DashboardActivity extends FragmentActivity
 
     private GraphView graphView;
     private LineGraph lineGraph;
-    private BartChart bartChart;
+    private BarChart barChart;
     private PointGraph pointGraph;
 
     /**
@@ -56,18 +56,21 @@ public class DashboardActivity extends FragmentActivity
     private CharSequence mTitle;
 
     private void createLineGraph() {
+        Object[][] value;
+        Bundle bundle = getIntent().getExtras();
+       // if (bundle != null) {
+            value = (Object[][]) bundle.get("dataobject");
+        //}
         lineGraph = new LineGraph();
-        LineGraphSeries<DataPoint> series = lineGraph.maakSerie1();
-        LineGraphSeries<DataPoint> serie2 = lineGraph.maakSerie2();
-        serie2.setColor(Color.parseColor("red"));
+        LineGraphSeries<DataPoint> series = lineGraph.maakSeries(value);
         graphView.setTitle("Testgrafiek");
         graphView.addSeries(series);
-        graphView.addSeries(serie2);
+        //graphView.addSeries(serie2);
     }
 
     private void createBarChart() {
-        bartChart = new BartChart();
-        BarGraphSeries<DataPoint> series = bartChart.maakSerie1();
+        barChart = new BarChart();
+        BarGraphSeries<DataPoint> series = barChart.maakSerie1();
         graphView.addSeries(series);
         series.setValueDependentColor(new ValueDependentColor<DataPoint>() {
             @Override
@@ -117,7 +120,7 @@ public class DashboardActivity extends FragmentActivity
         initialiseViews();
         addEventhandlers();
         createLineGraph();
-        // createBarChart();
+         createBarChart();
         //createPointGraph();
     }
 

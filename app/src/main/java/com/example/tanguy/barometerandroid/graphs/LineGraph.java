@@ -31,17 +31,29 @@ public class LineGraph {
 
     // params ->  int[] xValues, int[] yValues
 
-    public LineGraphSeries<DataPoint> maakSerie1(){
-        vulXDatapoints();
-        vulYDatapoints();
-        series = new LineGraphSeries<>(new DataPoint[] {
-                new DataPoint(xDatapoints[0], yDatapoints[0]),
+    public LineGraphSeries<DataPoint> maakSeries(Object [][] dataInput){
+        //vulXDatapoints();
+       //    vulYDatapoints();
+        // dataInput[1].length-1
+       // DataPoint[] dataPoints = new DataPoint[16];
+        /*for (int i = 1; i < 16; i++) {
+            dataPoints[i] = new DataPoint(i, Double.parseDouble(dataInput[i][1].toString()));
+        }*/
+/*                new DataPoint(xDatapoints[0], yDatapoints[0]),
                 new DataPoint(xDatapoints[1], yDatapoints[1]),
                 new DataPoint(xDatapoints[2], yDatapoints[2]),
                 new DataPoint(xDatapoints[3], yDatapoints[3]),
                 new DataPoint(xDatapoints[4], yDatapoints[4]),
-        });
-        return series;
+        series = new LineGraphSeries<>(dataPoints);*/
+            series = new LineGraphSeries<>(new DataPoint[] {
+                    new DataPoint(0, Double.parseDouble(dataInput[1][1].toString())),
+                    new DataPoint(1, Double.parseDouble(dataInput[2][1].toString())),
+                    new DataPoint(2, Double.parseDouble(dataInput[3][1].toString())),
+                    new DataPoint(3, Double.parseDouble(dataInput[4][1].toString())),
+                    new DataPoint(4, Double.parseDouble(dataInput[5][1].toString())),
+            });
+            return series;
+
     }
 
     public LineGraphSeries<DataPoint> maakSerie2(){
