@@ -1,7 +1,6 @@
 package com.example.tanguy.barometerandroid.dashboard;
 
 import android.app.Activity;
-
 import android.app.ActionBar;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -13,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.Toast;
-
 import com.example.tanguy.barometerandroid.ContactFragment;
 import com.example.tanguy.barometerandroid.AlertFragment;
 import com.example.tanguy.barometerandroid.PrivacyFragment;
@@ -23,10 +21,13 @@ import com.example.tanguy.barometerandroid.graphs.LineGraph;
 import com.example.tanguy.barometerandroid.graphs.PointGraph;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.ValueDependentColor;
+import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.PointsGraphSeries;
+
+import java.util.Date;
 
 public class DashboardActivity extends FragmentActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -63,9 +64,17 @@ public class DashboardActivity extends FragmentActivity
         //}
         lineGraph = new LineGraph();
         LineGraphSeries<DataPoint> series = lineGraph.maakSeries(value);
+        graphView.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(this));
+        //graphView.getGridLabelRenderer().setNumHorizontalLabels(3); // only 4 because of the space
+        /*Date d = new Date(2018,1,5);
+        Date d2 = new Date(2018,10,5);
+        graphView.getViewport().setMinX(d.getTime());
+        graphView.getViewport().setMaxX(d2.getTime());
+        graphView.getViewport().setXAxisBoundsManual(true);
+        graphView.getGridLabelRenderer().setHumanRounding(false);*/
+
         graphView.setTitle("Testgrafiek");
         graphView.addSeries(series);
-        //graphView.addSeries(serie2);
     }
 
     private void createBarChart() {
@@ -120,7 +129,7 @@ public class DashboardActivity extends FragmentActivity
         initialiseViews();
         addEventhandlers();
         createLineGraph();
-         createBarChart();
+         //createBarChart();
         //createPointGraph();
     }
 

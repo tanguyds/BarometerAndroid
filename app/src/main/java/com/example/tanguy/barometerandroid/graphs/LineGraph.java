@@ -1,9 +1,16 @@
 package com.example.tanguy.barometerandroid.graphs;
 
+import android.util.Log;
 
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
-import com.jjoe64.graphview.series.PointsGraphSeries;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.Locale;
+import java.util.logging.SimpleFormatter;
 
 /**
  * Created by Tanguy on 16/05/2018.
@@ -45,15 +52,22 @@ public class LineGraph {
                 new DataPoint(xDatapoints[3], yDatapoints[3]),
                 new DataPoint(xDatapoints[4], yDatapoints[4]),
         series = new LineGraphSeries<>(dataPoints);*/
-            series = new LineGraphSeries<>(new DataPoint[] {
-                    new DataPoint(0, Double.parseDouble(dataInput[1][1].toString())),
-                    new DataPoint(1, Double.parseDouble(dataInput[2][1].toString())),
-                    new DataPoint(2, Double.parseDouble(dataInput[3][1].toString())),
-                    new DataPoint(3, Double.parseDouble(dataInput[4][1].toString())),
-                    new DataPoint(4, Double.parseDouble(dataInput[5][1].toString())),
+        SimpleDateFormat format = new SimpleDateFormat("d/MM/yy");
+        Date date = null;
+        try {
+            date = format.parse(dataInput[1][0].toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        series = new LineGraphSeries<>(new DataPoint[] {
+                    new DataPoint(date, Double.parseDouble(dataInput[1][1].toString())),
+                    new DataPoint(date, Double.parseDouble(dataInput[2][1].toString())),
+                    new DataPoint(date, Double.parseDouble(dataInput[3][1].toString())),
+                    new DataPoint(date, Double.parseDouble(dataInput[4][1].toString())),
+                    new DataPoint(date, Double.parseDouble(dataInput[5][1].toString())),
             });
             return series;
-
     }
 
     public LineGraphSeries<DataPoint> maakSerie2(){
