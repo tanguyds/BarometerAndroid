@@ -27,6 +27,7 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 
+import java.util.Arrays;
 import java.util.Date;
 
 public class DashboardActivity extends FragmentActivity
@@ -59,22 +60,16 @@ public class DashboardActivity extends FragmentActivity
     private void createLineGraph() {
         Object[][] value;
         Bundle bundle = getIntent().getExtras();
-       // if (bundle != null) {
-            value = (Object[][]) bundle.get("dataobject");
-        //}
+        value = (Object[][]) bundle.get("dataobject");
         lineGraph = new LineGraph();
-        LineGraphSeries<DataPoint> series = lineGraph.maakSeries(value);
+       LineGraphSeries<DataPoint> series = lineGraph.maakSeries(value);
         graphView.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(this));
-        //graphView.getGridLabelRenderer().setNumHorizontalLabels(3); // only 4 because of the space
-        /*Date d = new Date(2018,1,5);
-        Date d2 = new Date(2018,10,5);
-        graphView.getViewport().setMinX(d.getTime());
-        graphView.getViewport().setMaxX(d2.getTime());
-        graphView.getViewport().setXAxisBoundsManual(true);
-        graphView.getGridLabelRenderer().setHumanRounding(false);*/
-
+        /*for (int i = 0; i < value.length; i++) {
+            LineGraphSeries<DataPoint> series = lineGraph.maakSeries(value[][]);
+            graphView.addSeries(series);
+        }*/
         graphView.setTitle("Testgrafiek");
-        graphView.addSeries(series);
+         graphView.addSeries(series);
     }
 
     private void createBarChart() {
@@ -89,10 +84,9 @@ public class DashboardActivity extends FragmentActivity
         });
         series.setSpacing(50);
 
-// draw values on top
+        // draw values on top
         series.setDrawValuesOnTop(true);
         series.setValuesOnTopColor(Color.RED);
-//series.setValuesOnTopSize(50);
     }
 
     private void createPointGraph() {
