@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+    android:orientation="horizontal">
+
+
+    <TextView
+        android:id="@+id/tvDashboardItemName"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_gravity="center"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+</LinearLayout>

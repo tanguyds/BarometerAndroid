@@ -24,7 +24,9 @@
         </activity>
         <activity
             android:name=".dashboard.DashboardActivity"
-            android:label="@string/title_activity_dashboard"></activity>
+            android:label="@string/title_activity_dashboard" />
+        <activity android:name=".dashboard.BarometerActivity" />
+        <activity android:name=".dashboard.DashboardNodeActivity"></activity>
     </application>
 
 </manifest>

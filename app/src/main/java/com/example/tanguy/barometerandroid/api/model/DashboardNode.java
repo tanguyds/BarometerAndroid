@@ -1,13 +1,23 @@
 package com.example.tanguy.barometerandroid.api.model;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
- * Created by Tanguy on 17/05/2018.
+ * @author Ilias Dewachter
+ * @date 22/05/2018 14:28
  */
-
 public class DashboardNode {
-    private int id;
 
-    public DashboardNode(int id) {
-        this.id = id;
+    @SerializedName("DashboardNodeType")
+    private String dashboardNodeType;
+    @SerializedName("DataTable")
+    private Object[][] dataTable;
+
+    public String getDashboardNodeType() {
+        return dashboardNodeType;
+    }
+
+    public Object[][] getDataTable() {
+        return dataTable;
     }
 }

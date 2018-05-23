@@ -21,5 +21,7 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="barometer">Barometer</string>
+    <string name="dashboard">Dashboard</string>
 
 </resources>
