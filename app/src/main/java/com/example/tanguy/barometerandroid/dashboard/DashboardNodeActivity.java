@@ -62,7 +62,13 @@ public class DashboardNodeActivity extends Activity {
             public void onResponse(Call<List<DashboardNode>> call, Response<List<DashboardNode>> response) {
                 List<DashboardNode> dashboardNodes = response.body();
 
-                lvDashboardNodes.setAdapter(new DashboardNodesAdapter(context, dashboardNodes));
+                List<DashboardNode> newList = new ArrayList<>();
+                for (DashboardNode dashboardNode : dashboardNodes) {
+                    if (dashboardNode.getDashboardNodeType() != null)
+                        newList.add(dashboardNode);
+                }
+
+                lvDashboardNodes.setAdapter(new DashboardNodesAdapter(context, newList));
             }
 
             @Override
@@ -84,12 +90,10 @@ public class DashboardNodeActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 DashboardNode dashboardNode = (DashboardNode) lvDashboardNodes.getAdapter().getItem(position);
-                /*
-                Intent intent = new Intent(DashboardNodeActivity.this, DashboardNodeActivity.class);
+                Intent intent = new Intent(DashboardNodeActivity.this, DashboardNodeDetailsActivity.class);
                 intent.putExtra("authorization", authorization);
-                intent.putExtra("dashboardid", dashboard.getDashboardId());
+                intent.putExtra("dashboardnode", dashboardNode);
                 startActivity(intent);
-                */
             }
         });
     }

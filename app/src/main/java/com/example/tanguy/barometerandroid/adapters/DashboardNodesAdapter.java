@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 
 import com.example.tanguy.barometerandroid.R;
 import com.example.tanguy.barometerandroid.api.model.DashboardNode;
+import com.example.tanguy.barometerandroid.util.ChartDrawer;
 import com.example.tanguy.barometerandroid.util.Util;
 import com.github.mikephil.charting.charts.Chart;
 
@@ -33,21 +34,15 @@ public class DashboardNodesAdapter extends ArrayAdapter<DashboardNode> {
         if (convertView == null){
             LayoutInflater inflater =(LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            int layout = 0;
-            switch (dashboardNode.getDashboardNodeType().toLowerCase()) {
-                case "linechartnode": {
-                    layout = R.layout.linechart_item;
-                }
-                break;
-            }
-            if (layout == 0) return convertView;
-
-            convertView = inflater.inflate(layout, parent, false);
+            convertView = inflater.inflate( dashboardNode.getDashboardNodeType().getLayout(), parent, false);
         }
 
         Chart chart = (Chart) convertView;
-        Util.createChart(chart, dashboardNode);
+        ChartDrawer chartDrawer = new ChartDrawer();
+        chartDrawer.createChart(chart, dashboardNode);
         chart.setTouchEnabled(false);
+        chart.setExtraOffsets(2, 26, 2, 2);
+        chart.invalidate();
 
         return convertView;
     }

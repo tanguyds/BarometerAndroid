@@ -1,19 +1,28 @@
 package com.example.tanguy.barometerandroid.util;
 
-import android.content.Context;
+import android.graphics.Color;
 
 import com.example.tanguy.barometerandroid.api.interfaces.UserClient;
 import com.example.tanguy.barometerandroid.api.model.DashboardNode;
+import com.example.tanguy.barometerandroid.api.model.DashboardNodeType;
 import com.github.mikephil.charting.charts.Chart;
-import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.IPieDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -37,7 +46,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class Util {
 
-    private static final String API_BASE_URL = "http://10.0.2.2:45457";
+    private static final String API_BASE_URL = "http://10.0.2.2:45455";
     public static final UserClient USER_CLIENT = setupUserClient();
 
     private static UserClient setupUserClient() {
@@ -53,67 +62,6 @@ public class Util {
 
         Retrofit retrofit = builder.build();
         return retrofit.create(UserClient.class);
-    }
-
-    public static long getDaysSinceEpoch(Date date) {
-        Calendar epoch = Calendar.getInstance();
-        epoch.setTime(new Date(0L));
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        return TimeUnit.MILLISECONDS.toDays(cal.getTimeInMillis() - epoch.getTimeInMillis());
-    }
-
-    public static Date getDateFromDaysSinceEpoch(int days) {
-        Calendar epoch = Calendar.getInstance();
-        epoch.setTime(new Date(0L));
-        epoch.add(Calendar.DATE, days);
-        return epoch.getTime();
-    }
-
-    public static void createChart(Chart lineChart, DashboardNode dashboardNode) {
-        Object[][] dataTable = dashboardNode.getDataTable();
-
-        HashMap<String, List<Entry>> headers = new LinkedHashMap<>(); //KEEP THE ORDER
-        for (int i = 1; i < dataTable[0].length; i++) {
-            String header = (String) dataTable[0][i];
-            headers.put(header, new ArrayList<Entry>());
-        }
-
-        final DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
-
-        for (int i = 1; i < dataTable.length; i++) {
-            float x = 0;
-            try {
-                x = Util.getDaysSinceEpoch(dateFormat.parse("" + dataTable[i][0]));
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            for (int j = 1; j < dataTable[i].length; j++) {
-                String header = (String) dataTable[0][j];
-                List<Entry> data = headers.get(header);
-                data.add(new Entry(x, Float.parseFloat("" + dataTable[i][j])));
-            }
-        }
-
-        List<ILineDataSet> dataSets = new ArrayList<>();
-        for (String header : headers.keySet()) {
-            LineDataSet lineDataSet = new LineDataSet(headers.get(header), header);
-            lineDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
-            dataSets.add(lineDataSet);
-        }
-
-        lineChart.setData(new LineData(dataSets));
-
-        XAxis xAxis = lineChart.getXAxis();
-        xAxis.setGranularity(1);
-        xAxis.setValueFormatter(new IAxisValueFormatter() {
-            @Override
-            public String getFormattedValue(float value, AxisBase axis) {
-                return dateFormat.format(Util.getDateFromDaysSinceEpoch((int) value));
-            }
-        });
-
-        lineChart.invalidate();
     }
 
 }
