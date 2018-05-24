@@ -5,7 +5,7 @@
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.tanguy.barometerandroid.dashboard.DashboardNodeActivity">
+    tools:context="com.nalu.barometer.dashboard.DashboardNodeActivity">
 
     <ListView
         android:id="@+id/lvDashboardNode"

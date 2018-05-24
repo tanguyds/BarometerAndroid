@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/BarometerAndroid.iml" filepath="$PROJECT_DIR$/BarometerAndroid.iml" />
-      <module fileurl="file://E:\BarometerApp\BarometerAndroid\.idea\BarometerAndroid.iml" filepath="E:\BarometerApp\BarometerAndroid\.idea\BarometerAndroid.iml" />
+      <module fileurl="file://E:/BarometerApp/BarometerAndroid/.idea/BarometerAndroid.iml" filepath="E:/BarometerApp/BarometerAndroid/.idea/BarometerAndroid.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "20331244493",
+    "firebase_url": "https://barometer-204412.firebaseio.com",
+    "project_id": "barometer-204412",
+    "storage_bucket": "barometer-204412.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:20331244493:android:74e2a6643e165a3c",
+        "android_client_info": {
+          "package_name": "com.nalu.barometer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "20331244493-cu70qk82pn8r1a1clgn1cgknk8ul0vpa.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "20331244493-cu70qk82pn8r1a1clgn1cgknk8ul0vpa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRiGq6rqVT09V5hjN_42gMW8vGWnCxVy4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

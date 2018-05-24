@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.tanguy.barometerandroid">
+    package="com.nalu.barometer">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- To auto-complete the email text field in the login form with the user's emails -->
@@ -15,7 +15,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@android:style/Theme.Material.Light">
-        <activity android:name=".MainActivity">
+        <service android:name="com.nalu.barometer.firebase.MessageReceiver">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity android:name="com.nalu.barometer.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,11 +29,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".dashboard.DashboardActivity"
+            android:name="com.nalu.barometer.dashboard.DashboardActivity"
             android:label="@string/title_activity_dashboard" />
-        <activity android:name=".dashboard.BarometerActivity" />
-        <activity android:name=".dashboard.DashboardNodeActivity" />
-        <activity android:name=".dashboard.DashboardNodeDetailsActivity"></activity>
+        <activity android:name="com.nalu.barometer.dashboard.BarometerActivity" />
+        <activity android:name="com.nalu.barometer.dashboard.DashboardNodeActivity" />
+        <activity android:name="com.nalu.barometer.dashboard.DashboardNodeDetailsActivity" />
     </application>
 
 </manifest>
