@@ -48,12 +48,9 @@ public class MainActivity extends Activity {
 
 
     private void loginCall() {
-        // TODO: 22/05/2018 FIX PLS
-        // userClient.login(etEmail.getText().toString(), etPassword.getText().toString(), "password").enqueue(new Callback<User>() {
-        Util.USER_CLIENT.login("testuser@nalubarometer.com", "Qwerty123!", "password").enqueue(new Callback<User>() {
+        Util.USER_CLIENT.login(etEmail.getText().toString(), etPassword.getText().toString(), "password").enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                Log.d("password.tostring", etPassword.getText().toString());
                 if (response.isSuccessful()) {
                     User user = response.body();
 
