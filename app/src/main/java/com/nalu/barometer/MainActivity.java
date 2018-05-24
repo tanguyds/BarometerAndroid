@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.nalu.barometer.api.model.User;
 import com.nalu.barometer.dashboard.BarometerActivity;
 import com.nalu.barometer.util.Util;
@@ -56,8 +57,11 @@ public class MainActivity extends Activity {
                 if (response.isSuccessful()) {
                     User user = response.body();
 
+                    String authorization = String.format("%s %s", user.getToken_type(), user.getAccess_token());
+                    sendFirebaseToken(authorization);
+
                     Intent intent = new Intent(MainActivity.this, BarometerActivity.class);
-                    intent.putExtra("authorization", String.format("%s %s", user.getToken_type(), user.getAccess_token()));
+                    intent.putExtra("authorization", authorization);
                     startActivity(intent);
                 } else {
                     Toast.makeText(MainActivity.this, "Login is not correct!", Toast.LENGTH_SHORT).show();
@@ -68,6 +72,21 @@ public class MainActivity extends Activity {
             public void onFailure(Call<User> call, Throwable t) {
                 Toast.makeText(MainActivity.this, "Error!", Toast.LENGTH_SHORT).show();
                 Log.d("error", "", t);
+            }
+        });
+    }
+
+    private void sendFirebaseToken(String authorization) {
+        String token = FirebaseInstanceId.getInstance().getToken();
+        Util.USER_CLIENT.sendFirebaseToken(authorization, token).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+
             }
         });
     }

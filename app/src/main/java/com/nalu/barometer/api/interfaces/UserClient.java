@@ -8,6 +8,7 @@ import com.nalu.barometer.api.model.User;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -37,7 +38,7 @@ public interface UserClient {
 
     @GET("api/Dashboard/GetDashboards")
     Call<List<Dashboard>> getDashboards(
-            @Header("Authorization") String token,
+            @Header("Authorization") String authorization,
             @Query("subDomain") String subDomain
     );
 
@@ -46,7 +47,9 @@ public interface UserClient {
             @Query("dashboardId") int dashboardId
     );
 
-
-    // @GET("secretinfo")
-    // Call<ResponseBody> getSecret(@Header("Authorization") String authToken);
+    @POST("api/Dashboard/RegisterDevice")
+    Call<Void> sendFirebaseToken(
+            @Header("Authorization") String authorization,
+            @Body String token
+    );
 }
