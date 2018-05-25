@@ -13,7 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.tanguy.barometerandroid.R;
+import com.nalu.barometer.R;
 import com.nalu.barometer.api.model.Barometer;
 
 import java.util.List;

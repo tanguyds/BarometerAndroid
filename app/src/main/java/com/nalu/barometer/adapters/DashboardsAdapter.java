@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.example.tanguy.barometerandroid.R;
+import com.nalu.barometer.R;
 import com.nalu.barometer.api.model.Dashboard;
 
 import java.util.List;
@@ -37,7 +37,10 @@ public class DashboardsAdapter extends ArrayAdapter<Dashboard> {
 
         TextView tvDashboardItemName = convertView.findViewById(R.id.tvDashboardItemName);
 
-        tvDashboardItemName.setText("" + dashboard.getName());
+        String name = dashboard.getName();
+        if (name == null) name = "Default dashboard";
+
+        tvDashboardItemName.setText(name);
 
         return convertView;
     }

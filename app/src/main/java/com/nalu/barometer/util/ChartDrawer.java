@@ -151,7 +151,8 @@ public class ChartDrawer {
         String type = "" + dataTable[0][1];
         List<PieEntry> data = new ArrayList<>();
         for (int i = 1; i < dataTable.length; i++) {
-            data.add(new PieEntry(Float.parseFloat("" + dataTable[i][1]), ""));
+            String header = (String) dataTable[i][0];
+            data.add(new PieEntry(Float.parseFloat("" + dataTable[i][1]), header));
         }
 
         PieDataSet pieDataSet = new PieDataSet(data, type);

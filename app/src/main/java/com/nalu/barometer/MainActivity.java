@@ -37,10 +37,13 @@ public class MainActivity extends Activity {
         etPassword = findViewById(R.id.etPassword);
     }
 
+    private boolean loggingIn = false;
     private void addEventHandlers() {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (loggingIn) return;
+                loggingIn = true;
                 loginCall();
             }
         });
@@ -63,12 +66,14 @@ public class MainActivity extends Activity {
                 } else {
                     Toast.makeText(MainActivity.this, "Login is not correct!", Toast.LENGTH_SHORT).show();
                 }
+                loggingIn = false;
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 Toast.makeText(MainActivity.this, "Error!", Toast.LENGTH_SHORT).show();
                 Log.d("error", "", t);
+                loggingIn = false;
             }
         });
     }

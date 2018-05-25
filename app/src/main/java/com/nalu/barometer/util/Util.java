@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class Util {
 
-    private static final String API_BASE_URL = "http://10.0.2.2:45455";
+    private static final String API_BASE_URL = "http://10.134.216.25:8004";
     public static final UserClient USER_CLIENT = setupUserClient();
 
     private static UserClient setupUserClient() {
