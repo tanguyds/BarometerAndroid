@@ -1,7 +1,8 @@
 package com.nalu.barometer.api.model;
 
-import com.example.tanguy.barometerandroid.R;
+//import com.example.tanguy.barometerandroid.R;
 import com.google.gson.annotations.SerializedName;
+import com.nalu.barometer.R;
 
 /**
  * @author Ilias Dewachter
