@@ -3,10 +3,13 @@ package com.nalu.barometer.dashboard;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.nalu.barometer.R;
 import com.nalu.barometer.adapters.DashboardNodesAdapter;
@@ -24,8 +27,9 @@ import retrofit2.Response;
 public class DashboardNodeActivity extends Activity {
 
     private ListView lvDashboardNodes;
-
+    private TextView tvDashboardName;
     private String authorization;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +40,7 @@ public class DashboardNodeActivity extends Activity {
         this.authorization = bundle.getString("authorization");
         Dashboard dashboard = (Dashboard) bundle.get("dashboard");
 
-        setTitle(dashboard.getName());
+        setTitle(DashboardActivity.sBarometer);
 
         final Context context = this;
         Util.USER_CLIENT.getDashboard(dashboard.getDashboardId()).enqueue(new Callback<List<DashboardNode>>() {
@@ -61,10 +65,14 @@ public class DashboardNodeActivity extends Activity {
 
         initialiseViews();
         addEventHandlers();
+        tvDashboardName.setText(dashboard.getName());
+        tvDashboardName.setTypeface(null, Typeface.BOLD_ITALIC);
     }
 
     private void initialiseViews() {
         lvDashboardNodes = findViewById(R.id.lvDashboardNode);
+        tvDashboardName = findViewById(R.id.tvDashboardName);
+
     }
 
     private void addEventHandlers() {
@@ -78,5 +86,6 @@ public class DashboardNodeActivity extends Activity {
                 startActivity(intent);
             }
         });
+
     }
 }

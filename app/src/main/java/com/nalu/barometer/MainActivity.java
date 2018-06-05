@@ -37,7 +37,7 @@ public class MainActivity extends Activity {
         etPassword = findViewById(R.id.etPassword);
     }
 
-    private boolean loggingIn = false;
+    static boolean loggingIn = false;
     private void addEventHandlers() {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +60,7 @@ public class MainActivity extends Activity {
                     String authorization = String.format("%s %s", user.getToken_type(), user.getAccess_token());
                     sendFirebaseToken(authorization);
 
+
                     Intent intent = new Intent(MainActivity.this, BarometerActivity.class);
                     intent.putExtra("authorization", authorization);
                     startActivity(intent);
@@ -68,6 +69,7 @@ public class MainActivity extends Activity {
                 }
                 loggingIn = false;
             }
+
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {

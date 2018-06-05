@@ -1,9 +1,12 @@
 package com.nalu.barometer.dashboard;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.Chart;
 import com.nalu.barometer.R;
@@ -13,6 +16,7 @@ import com.nalu.barometer.util.ChartDrawer;
 public class DashboardNodeDetailsActivity extends Activity {
 
     private String authorization;
+    private TextView tvTitle;
 
     private LinearLayout linearLayout;
 
@@ -25,7 +29,7 @@ public class DashboardNodeDetailsActivity extends Activity {
         this.authorization = bundle.getString("authorization");
         DashboardNode dashboardNode = (DashboardNode) bundle.get("dashboardnode");
 
-        setTitle(dashboardNode.getTitle());
+        setTitle("Details");
 
         initialiseViews();
         addEventHandlers();
@@ -37,10 +41,15 @@ public class DashboardNodeDetailsActivity extends Activity {
         chart.getLayoutParams().height = android.view.ViewGroup.LayoutParams.MATCH_PARENT;
         chart.setExtraOffsets(2, 18, 2, 2);
         chart.invalidate();
+
+        tvTitle.setText(dashboardNode.getTitle());
+
+
     }
 
     private void initialiseViews() {
         linearLayout = findViewById(R.id.linearLayout);
+        tvTitle = findViewById(R.id.tvTitle);
     }
 
     private void addEventHandlers() {

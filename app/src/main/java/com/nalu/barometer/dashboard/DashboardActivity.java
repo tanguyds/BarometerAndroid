@@ -3,10 +3,12 @@ package com.nalu.barometer.dashboard;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.nalu.barometer.R;
 import com.nalu.barometer.adapters.DashboardsAdapter;
@@ -23,8 +25,9 @@ import retrofit2.Response;
 public class DashboardActivity extends Activity {
 
     private String authorization;
-
+    public static String sBarometer;
     private ListView lvDashboard;
+    private TextView tvStringDashboard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +38,8 @@ public class DashboardActivity extends Activity {
         this.authorization = bundle.getString("authorization");
         Barometer barometer = (Barometer) bundle.get("barometer");
 
-        setTitle(barometer.getName());
+        sBarometer = barometer.getName();
+        setTitle(sBarometer);
 
         final Context context = this;
         Util.USER_CLIENT.getDashboards(authorization, barometer.getSubDomain()).enqueue(new Callback<List<Dashboard>>() {
@@ -53,10 +57,13 @@ public class DashboardActivity extends Activity {
 
         initialiseViews();
         addEventHandlers();
+        tvStringDashboard.setText("Dashboards");
+        tvStringDashboard.setTypeface(null, Typeface.BOLD_ITALIC);
     }
 
     private void initialiseViews() {
         lvDashboard = findViewById(R.id.lvDashboard);
+        tvStringDashboard = findViewById(R.id.tvStringDashboard);
     }
 
     private void addEventHandlers() {
@@ -67,6 +74,7 @@ public class DashboardActivity extends Activity {
                 Intent intent = new Intent(DashboardActivity.this, DashboardNodeActivity.class);
                 intent.putExtra("authorization", authorization);
                 intent.putExtra("dashboard", dashboard);
+
                 startActivity(intent);
             }
         });

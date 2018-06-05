@@ -3,12 +3,16 @@ package com.nalu.barometer.dashboard;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import com.nalu.barometer.MainActivity;
 import com.nalu.barometer.R;
 import com.nalu.barometer.adapters.BarometersAdapter;
 import com.nalu.barometer.api.model.Barometer;
@@ -23,7 +27,8 @@ import retrofit2.Response;
 public class BarometerActivity extends Activity {
 
     private ListView lvBarometer;
-
+    private Button btnLogOff;
+    private TextView tvOverzichtBarometer;
     private String authorization;
 
     @Override
@@ -49,10 +54,14 @@ public class BarometerActivity extends Activity {
             @Override
             public void onFailure(Call<List<Barometer>> call, Throwable t) {}
         });
+        tvOverzichtBarometer.setText("Overzicht Barometers");
+        tvOverzichtBarometer.setTypeface(null, Typeface.BOLD_ITALIC);
     }
 
     private void initialiseViews() {
         lvBarometer = findViewById(R.id.lvBarometer);
+        btnLogOff = findViewById(R.id.btnLogoff);
+        tvOverzichtBarometer = findViewById(R.id.tvOverzichtBarometers);
     }
 
     private void addEventHandlers() {
@@ -64,6 +73,16 @@ public class BarometerActivity extends Activity {
                 intent.putExtra("authorization", authorization);
                 intent.putExtra("barometer", barometer);
                 startActivity(intent);
+            }
+        });
+
+        btnLogOff.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(BarometerActivity.this, MainActivity.class);
+                startActivity(intent);
+
             }
         });
     }

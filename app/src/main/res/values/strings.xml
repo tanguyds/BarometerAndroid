@@ -37,5 +37,6 @@
         completions."
     </string>
     <string name="logo">logo</string>
+    <string name="log_off">Log off</string>
 
 </resources>
